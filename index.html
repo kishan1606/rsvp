@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Griha Pravesh – RSVP</title>
-  <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=EB+Garamond:wght@400;700&family=Noto+Sans+Devanagari:wght@400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=EB+Garamond:wght@400;700&family=Noto+Sans+Devanagari:wght@400&display=swap&family=Imperial+Script&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -119,7 +119,14 @@
       line-height: 1.55;
       max-width: 290px;
     }
-
+    .food {
+      margin-top: 10px;
+      font-size: 20px;
+      color: #c0512a;
+      text-align: center;
+      line-height: 1.55;
+      max-width: 290px;
+    }
     .date {
       margin-top: 10px;
       font-size: 32px;
@@ -190,8 +197,9 @@
 
     .attendees-row {
       display: flex;
-      justify-content: center;
-      gap: 36px;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
     }
 
     .attendee-group {
@@ -199,6 +207,7 @@
       flex-direction: column;
       align-items: center;
       gap: 6px;
+      width: 100%;
     }
 
     .attendee-sublabel {
@@ -213,12 +222,12 @@
     }
 
     .counter-btn {
-      width: 30px;
-      height: 42px;
+      width: 44px;
+      height: 50px;
       background: none;
       border: none;
       font-family: 'EB Garamond', Georgia, serif;
-      font-size: 22px;
+      font-size: 28px;
       font-weight: 700;
       color: #a86b2c;
       cursor: pointer;
@@ -229,19 +238,19 @@
     .counter-btn:hover { color: #6a1b14; }
 
     .counter-input {
-      width: 58px;
-      height: 42px;
+      width: 120px;
+      height: 50px;
       background: #f0e4d0;
       font-family: 'EB Garamond', Georgia, serif;
       border: none;
       border-bottom: 2px solid #a86b2c;
       border-radius: 4px 4px 0 0;
       text-align: center;
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 16px;
+      font-size: 20px;
       color: #1d1b20;
       outline: none;
-      /* -moz-appearance: textfield; */
+      -moz-appearance: textfield;
+      appearance: textfield;
     }
     .counter-input::-webkit-inner-spin-button,
     .counter-input::-webkit-outer-spin-button { -webkit-appearance: none; }
@@ -263,7 +272,7 @@
     }
 
     .form-title {
-      font-family: 'Pinyon Script', cursive;
+      font-family: 'Imperial Script';
       font-size: 52px;
       color: #6a1b14;
       line-height: 1;
@@ -397,6 +406,8 @@
 
       <div class="sanskrit">|| श्री गणेशाय नमः ||</div>
 
+      <p class="date">Alpesh and Manisha invite you</p>
+
       <div class="title1">Havan</div>
       <div class="title2">Puja</div>
 
@@ -406,13 +417,16 @@
       <p class="date">Saturday, July 25, 2026</p>
       <p class="address">451 Graham Circle, Florence, AL 35634</p>
 
+      <p class="food">Lunch starts at 12:00 PM</p>
+      <p class="food">Ma Prasad starts at 5:00 PM</p>
+
       <div class="form-title-wrap">
         <div class="form-title-line"></div>
         <div class="form-title">RSVP</div>
         <div class="form-title-line"></div>
       </div>
 
-      <form class="form-wrap" id="rsvpForm" onsubmit="submitRSVP(event)" novalidate>
+      <form class="form-wrap" id="rsvpForm" onsubmit="submitRSVP(event)" novalidate autocomplete="off">
 
         <div class="field-group">
           <div class="field-label">Name</div>
@@ -432,7 +446,7 @@
               <div class="attendee-sublabel">Adults</div>
               <div class="counter-row">
                 <button type="button" class="counter-btn" onclick="counter('adults', -1)">−</button>
-                <input class="counter-input" type="number" id="adults" value="1" min="0" max="20" readonly />
+                <input class="counter-input" type="number" id="adults" value="1" min="0" max="10" inputmode="numeric" />
                 <button type="button" class="counter-btn" onclick="counter('adults', 1)">+</button>
               </div>
             </div>
@@ -441,7 +455,7 @@
               <div class="attendee-sublabel">Kids Under 12</div>
               <div class="counter-row">
                 <button type="button" class="counter-btn" onclick="counter('kids', -1)">−</button>
-                <input class="counter-input" type="number" id="kids" value="0" min="0" max="20" readonly />
+                <input class="counter-input" type="number" id="kids" value="0" min="0" max="10" inputmode="numeric" />
                 <button type="button" class="counter-btn" onclick="counter('kids', 1)">+</button>
               </div>
             </div>
@@ -449,13 +463,13 @@
           </div>
         </div>
 
-        <div class="field-group">
+        <!-- <div class="field-group">
           <div class="overnight-label">Staying Overnight?</div>
           <div class="overnight-row">
             <button type="button" class="overnight-btn" id="overnightYes" onclick="setOvernight(true)">Yes</button>
             <button type="button" class="overnight-btn selected" id="overnightNo" onclick="setOvernight(false)">No</button>
           </div>
-        </div>
+        </div> -->
 
         <button class="submit-btn" type="submit" id="submitBtn">Send RSVP</button>
         <div class="success-msg" id="successMsg">
@@ -561,6 +575,15 @@
 
   document.getElementById('guestName').addEventListener('input', function() {
     this.style.borderBottomColor = '';
+  });
+
+  ['adults', 'kids'].forEach(id => {
+    document.getElementById(id).addEventListener('input', function() {
+      this.value = this.value.replace(/[^0-9]/g, '');
+      const n = parseInt(this.value, 10);
+      if (!isNaN(n) && n > 20) this.value = '20';
+      if (this.value === '') this.value = '0';
+    });
   });
 
   function fitCard() {
