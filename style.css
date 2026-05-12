@@ -1,0 +1,340 @@
+/* ── Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
+
+@font-face {
+  font-family: 'Sloop Script Pro';
+  src: url('fonts/SloopScriptPro.woff2') format('woff2'),
+       url('fonts/SloopScriptPro.woff') format('woff'),
+       url('fonts/SloopScriptPro.otf') format('opentype');
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Page background ── */
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff8eb;
+  font-family: 'EB Garamond', Georgia, serif;
+}
+
+.page {
+  padding: 80px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Card ── */
+/* 480 × 672 matches the Canva canvas exactly.
+   overflow: visible so overflowing decorative SVGs show on the #fff8eb page bg. */
+.card {
+  position: relative;
+  width: 480px;
+  height: 672px;
+  /* background: url('images/Peach Orange and Red Traditional Griha Pravesh Ceremony Invitation.svg') center / 100% 100% no-repeat; */
+  overflow: visible;
+}
+
+/* ── Base class for all absolutely-positioned elements ── */
+.el {
+  position: absolute;
+}
+
+/* ─────────────────────────────────────────────
+   LAMP / SIDE BORDERS
+   Canva JSON coords (left = B, top = A):
+     lamp-il: left 63.73  top -103.81  w 54.92  h 337.35
+     lamp-ir: left 361.35 top -103.81  w 54.92  h 337.35  (mirror)
+     lamp-ol: left  30.55 top  -66.51  w 61.13  h 413.73
+     lamp-or: left 388.32 top  -66.51  w 67.35  h 413.73  (mirror)
+───────────────────────────────────────────── */
+.lamp-il {
+  left: 63.73px; top: -103.81px;
+  width: 54.92px; height: 337.35px;
+  overflow: hidden;
+}
+.lamp-ir {
+  left: 361.35px; top: -103.81px;
+  width: 54.92px; height: 337.35px;
+  overflow: hidden;
+}
+.lamp-ol {
+  left: 30.55px; top: -66.51px;
+  width: 61.13px; height: 413.73px;
+  overflow: hidden;
+}
+.lamp-or {
+  left: 388.32px; top: -66.51px;
+  width: 67.35px; height: 413.73px;
+  overflow: hidden;
+}
+
+/* Images inside lamp containers fill the container; right-side ones are mirrored */
+.lamp-il img, .lamp-ol img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+.lamp-ir img, .lamp-or img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transform: scaleX(-1);
+}
+
+/* ─────────────────────────────────────────────
+   FLOWER 2 — top corners (large, overlap card edge)
+     f2-left:  left -185.88  top -121.89  w 354.12  h 339.14  (mirror)
+     f2-right: left  311.76  top -121.89  w 354.12  h 339.14
+───────────────────────────────────────────── */
+.f2-left {
+  left: -185.88px; top: -121.89px;
+  width: 354.12px; height: 339.14px;
+}
+.f2-right {
+  left: 311.76px; top: -121.89px;
+  width: 354.12px; height: 339.14px;
+}
+.f2-left img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  display: block;
+  transform: scaleX(-1);
+}
+.f2-right img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* ─────────────────────────────────────────────
+   GANESHA — centre top
+     left 203.24  top 78.80  w 73.52  h 82.96
+───────────────────────────────────────────── */
+.ganesha-el {
+  left: 203.24px; top: 78.80px;
+  width: 73.52px; height: 82.96px;
+}
+.ganesha-el img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* ─────────────────────────────────────────────
+   TEXT ELEMENTS — all #dc2800
+───────────────────────────────────────────── */
+.el[class^="t-"], .el[class*=" t-"] {
+  color: #dc2800;
+  text-align: center;
+}
+
+/* "You're invited to our"
+   left 82.76  top 191.05  w 299.44  h 22.24
+   font: EB Garamond 18.78px */
+.t-pretitle {
+  left: 82.76px; top: 191.05px;
+  width: 299.44px;
+  font-size: 18.78px;
+  line-height: 26px;
+  font-family: 'EB Garamond', Georgia, serif;
+}
+
+/* "Griha Pravesh"
+   left 63.73  top 231.66  w 339.24  h 77.14
+   font: Sloop Script Pro ~54px */
+.t-title1 {
+  left: 63.73px; top: 231.66px;
+  width: 339.24px;
+  font-family: 'Sloop Script Pro', 'Great Vibes', cursive;
+  font-size: 54px;
+  line-height: 75px;
+  letter-spacing: 0.002em;
+}
+
+/* "Ceremony"
+   left 41.12  top 297.61  w 375.46  h 76.04
+   font: Sloop Script Pro ~53.5px */
+.t-title2 {
+  left: 41.12px; top: 297.61px;
+  width: 375.46px;
+  font-family: 'Sloop Script Pro', 'Great Vibes', cursive;
+  font-size: 53.5px;
+  line-height: 74px;
+  letter-spacing: 0.002em;
+}
+
+/* Body text
+   left 88.39  top 379.95  w 288.20  h 45.80
+   font: EB Garamond 15.63px */
+.t-body {
+  left: 88.39px; top: 379.95px;
+  width: 288.20px;
+  font-size: 15.63px;
+  line-height: 20px;
+  font-family: 'EB Garamond', Georgia, serif;
+}
+
+/* Date
+   left 88.39  top 450.98  w 288.20  h 39.01
+   font: EB Garamond 27.61px */
+.t-date {
+  left: 88.39px; top: 450.98px;
+  width: 288.20px;
+  font-size: 27.61px;
+  line-height: 38px;
+  font-family: 'EB Garamond', Georgia, serif;
+}
+
+/* Venue
+   left 121.69  top 495.47  w 221.59  h 44.62
+   font: EB Garamond 14.30px */
+.t-venue {
+  left: 121.69px; top: 495.47px;
+  width: 221.59px;
+  font-size: 14.30px;
+  line-height: 20px;
+  font-family: 'EB Garamond', Georgia, serif;
+}
+
+/* RSVP
+   left 117.30  top 565.61  w 230.38  h 16.66
+   font: EB Garamond italic 12px */
+.t-rsvp {
+  left: 117.30px; top: 565.61px;
+  width: 230.38px;
+  font-size: 12px;
+  line-height: 15px;
+  font-style: italic;
+  font-family: 'EB Garamond', Georgia, serif;
+}
+
+/* ─────────────────────────────────────────────
+   BOTTOM CORNER FLOWERS — large, rotated
+     fb-left:  left -155.89  top 425.60  w 270.62  h 352.72  rotate(-10.90°) mirror
+     fb-right: left  365.60  top 425.60  w 270.62  h 352.72  rotate(10.77°)
+───────────────────────────────────────────── */
+.fb-left {
+  left: -155.89px; top: 425.60px;
+  width: 270.62px; height: 352.72px;
+  transform: rotate(-10.90deg) scaleX(-1);
+  transform-origin: top left;
+}
+.fb-right {
+  left: 365.60px; top: 425.60px;
+  width: 270.62px; height: 352.72px;
+  transform: rotate(10.77deg);
+  transform-origin: top left;
+}
+.fb-left img, .fb-right img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* ─────────────────────────────────────────────
+   BOTTOM SMALL FLOWERS — pair at very bottom
+     fs-left:  left  34.89  top 626.73  w 153.94  h 193.95
+     fs-right: left 291.17  top 626.73  w 153.94  h 193.95  (mirror)
+───────────────────────────────────────────── */
+.fs-left {
+  left: 34.89px; top: 626.73px;
+  width: 153.94px; height: 193.95px;
+}
+.fs-right {
+  left: 291.17px; top: 626.73px;
+  width: 153.94px; height: 193.95px;
+}
+.fs-left img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.fs-right img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  display: block;
+  transform: scaleX(-1);
+}
+
+/* ─────────────────────────────────────────────
+   ANIMATIONS
+   Lamp + flower2: slide in from sides.
+   Bottom flowers:  slide up.
+───────────────────────────────────────────── */
+
+/* initial hidden states */
+.anim-lamp, .anim-f2, .anim-fb { opacity: 0; }
+
+/* Lamp slide in from left (lamps on left side) */
+@keyframes slideFromLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+/* Lamp slide in from right (lamps on right side) */
+@keyframes slideFromRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+/* flower2 left: already has scaleX(-1) on img, container slides from left */
+@keyframes slideFromLeftFull {
+  from { opacity: 0; transform: translateX(-50px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+/* flower2 right: slides from right */
+@keyframes slideFromRightFull {
+  from { opacity: 0; transform: translateX(50px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+/* bottom flowers: slide up, preserve existing rotate/scaleX */
+@keyframes slideUpLeft {
+  from { opacity: 0; transform: translateY(50px) rotate(-10.90deg) scaleX(-1); }
+  to   { opacity: 1; transform: translateY(0)    rotate(-10.90deg) scaleX(-1); }
+}
+@keyframes slideUpRight {
+  from { opacity: 0; transform: translateY(50px) rotate(10.77deg); }
+  to   { opacity: 1; transform: translateY(0)    rotate(10.77deg); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Lamp glow pulse after entry */
+@keyframes lampGlow {
+  0%,100% { filter: drop-shadow(0 0 3px #ffa040); }
+  50%      { filter: drop-shadow(0 0 10px #ff8000) drop-shadow(0 0 18px #ffcc60); }
+}
+
+/* ── JS adds .go class to kick off animations ── */
+
+.lamp-il.go, .lamp-ol.go {
+  animation: slideFromLeft 0.8s cubic-bezier(.22,.68,0,1.2) forwards,
+             lampGlow 2.6s ease-in-out 0.8s infinite;
+}
+.lamp-ir.go, .lamp-or.go {
+  animation: slideFromRight 0.8s cubic-bezier(.22,.68,0,1.2) forwards,
+             lampGlow 2.6s ease-in-out 0.8s infinite;
+}
+
+.f2-left.go {
+  animation: slideFromLeftFull 0.9s 0.15s cubic-bezier(.22,.68,0,1.2) forwards;
+}
+.f2-right.go {
+  animation: slideFromRightFull 0.9s 0.15s cubic-bezier(.22,.68,0,1.2) forwards;
+}
+
+.fb-left.go {
+  animation: slideUpLeft 1s 0.4s cubic-bezier(.22,.68,0,1.2) forwards;
+}
+.fb-right.go {
+  animation: slideUpRight 1s 0.4s cubic-bezier(.22,.68,0,1.2) forwards;
+}
+.fs-left.go, .fs-right.go {
+  animation: slideUp 0.9s 0.55s cubic-bezier(.22,.68,0,1.2) forwards;
+}

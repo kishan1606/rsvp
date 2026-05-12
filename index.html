@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Griha Pravesh – RSVP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=EB+Garamond:wght@400;700&family=Noto+Sans+Devanagari:wght@400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f0dfc0;
+      font-family: 'EB Garamond', Georgia, serif;
+    }
+
+    .page { padding: 100px 20px; }
+
+    .card {
+      position: relative;
+      width: 480px;
+      background: #fff3e2;
+      overflow: hidden;
+    }
+
+    .el { position: absolute; }
+
+    /* ── Top-corner flowers (flower_2 — dark red) ── */
+    .f2-left  { left: -100px; top: -90px; width: 300px; height: 280px; }
+    .f2-right { right: -100px; top: -90px; width: 300px; height: 280px; }
+    .f2-left  img { width: 100%; height: 100%; object-fit: contain; display: block; transform: scaleX(-1); }
+    .f2-right img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+    /* ── Lamps ── */
+    .lamp-l { left: 20px; top: 90px; width: 37px; height: 220px; overflow: hidden; }
+    .lamp-r { right: 20px; top: 90px; width: 37px; height: 220px; overflow: hidden; }
+    .lamp-l img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+    .lamp-r img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; transform: scaleX(-1); }
+
+    /* ── Inner lamps ── */
+    .lamp-il { left: 110px; top: 10px; width: 30px; height: 185px; overflow: hidden; }
+    .lamp-ir { right: 110px; top: 10px; width: 30px; height: 185px; overflow: hidden; }
+    .lamp-il img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+    .lamp-ir img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; transform: scaleX(-1); }
+
+    /* ── Bottom large flowers (flower_1 — orange marigold) ── */
+    .fb-left {
+      bottom: -45px; right: 530px;
+      width: 270px; height: 320px;
+      transform: rotate(15.9deg) scaleX(-1);
+      transform-origin: top right;
+    }
+    .fb-right {
+      bottom: -110px; right: -39px;
+      width: 270px; height: 320px;
+      transform: rotate(-13.9deg);
+      transform-origin: top left;
+    }
+    .fb-left img, .fb-right img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+    /* ── Bottom small flowers (flower_3 — pink) ── */
+    .fs-left  { bottom: -50px; left: 90px;  width: 120px; height: 148px; }
+    .fs-right { bottom: -50px; right: 90px; width: 120px; height: 148px; }
+    .fs-left  img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .fs-right img { width: 100%; height: 100%; object-fit: contain; display: block; transform: scaleX(-1); }
+
+    /* ── Content flow ── */
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 44px 0;
+    }
+
+    .ganesha-wrap {
+      margin-top: 200px;
+      width: 128px;
+      height: 145px;
+    }
+    .ganesha-wrap img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+    .sanskrit {
+      margin-top: 14px;
+      font-family: 'Noto Sans Devanagari', 'EB Garamond', Georgia, serif;
+      font-size: 18px;
+      color: #8a2a1c;
+      text-align: center;
+      letter-spacing: 0.02em;
+    }
+
+    .title1 {
+      margin-top: 10px;
+      font-family: 'Pinyon Script', cursive;
+      font-size: 70px;
+      color: #6a1b14;
+      text-align: center;
+      line-height: 1.05;
+    }
+    .title2 {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 70px;
+      color: #6a1b14;
+      text-align: center;
+      line-height: 1.05;
+      margin-top: -6px;
+    }
+
+    .description {
+      margin-top: 22px;
+      font-size: 18px;
+      color: #c0512a;
+      text-align: center;
+      line-height: 1.55;
+      max-width: 290px;
+    }
+
+    .date {
+      margin-top: 10px;
+      font-size: 32px;
+      color: #c0512a;
+      text-align: center;
+      font-weight: 400;
+    }
+
+    .address {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #c0512a;
+      text-align: center;
+    }
+
+    .time {
+      margin-top: 20px;
+      margin-bottom: -10px;
+      font-size: 18px;
+      color: #c0512a;
+      text-align: center;
+    }
+
+    /* ── RSVP Form ── */
+    .form-wrap {
+      width: 100%;
+      max-width: 340px;
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .field-group { margin-bottom: 20px; }
+
+    .field-label {
+      font-size: 16px;
+      font-weight: 700;
+      color: #a86b2c;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    .field-input {
+      width: 100%;
+      height: 42px;
+      background: #e6e0e9;
+      border: none;
+      border-bottom: 2px solid #a86b2c;
+      border-radius: 4px 4px 0 0;
+      padding: 0 16px;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 16px;
+      color: #1d1b20;
+      outline: none;
+      transition: background 0.15s;
+    }
+    .field-input:focus { background: #d9d3e0; }
+
+    .attendees-label {
+      font-size: 16px;
+      font-weight: 700;
+      color: #a86b2c;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .attendees-row {
+      display: flex;
+      justify-content: center;
+      gap: 36px;
+    }
+
+    .attendee-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .attendee-sublabel {
+      font-size: 14px;
+      font-weight: 700;
+      color: #a86b2c;
+    }
+
+    .counter-row {
+      display: flex;
+      align-items: center;
+    }
+
+    .counter-btn {
+      width: 30px;
+      height: 42px;
+      background: none;
+      border: none;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #a86b2c;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0;
+      user-select: none;
+    }
+    .counter-btn:hover { color: #6a1b14; }
+
+    .counter-input {
+      width: 58px;
+      height: 42px;
+      background: #e6e0e9;
+      border: none;
+      border-bottom: 2px solid #a86b2c;
+      border-radius: 4px 4px 0 0;
+      text-align: center;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 16px;
+      color: #1d1b20;
+      outline: none;
+      /* -moz-appearance: textfield; */
+    }
+    .counter-input::-webkit-inner-spin-button,
+    .counter-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+    .submit-btn {
+      align-self: center;
+      margin-top: 32px;
+      width: 245px;
+      height: 50px;
+      background: #3d1a0a;
+      border: none;
+      border-radius: 4px;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #f7e2cc;
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      transition: background 0.15s;
+    }
+    .submit-btn:hover { background: #5c2910; }
+
+    .success-msg {
+      display: none;
+      margin-top: 24px;
+      font-size: 18px;
+      color: #6a1b14;
+      text-align: center;
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    .action-btns {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 40px;
+      padding-bottom: 260px;
+    }
+
+    .action-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      width: 110px;
+      padding: 14px 10px;
+      background: none;
+      border: 1.5px solid #a86b2c;
+      border-radius: 8px;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #6a1b14;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+      letter-spacing: 0.02em;
+    }
+    .action-btn:hover { background: #6a1b14; color: #f7e2cc; }
+    .action-btn:hover .action-icon { filter: brightness(10); }
+
+    .action-icon {
+      width: 28px;
+      height: 28px;
+      display: block;
+    }
+
+    @media (max-width: 520px) {
+      body { background: none; }
+      .page { padding: 0; }
+      .card { width: 100vw; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <div class="card">
+
+    <!-- Decorative: lamps -->
+    <div class="el lamp-l"><img src="images/lamp.svg" alt="" /></div>
+    <div class="el lamp-r"><img src="images/lamp.svg" alt="" /></div>
+    <div class="el lamp-il"><img src="images/lamp.svg" alt="" /></div>
+    <div class="el lamp-ir"><img src="images/lamp.svg" alt="" /></div>
+
+    <!-- Decorative: top flowers -->
+    <div class="el f2-left"><img src="images/flower_2.svg" alt="" /></div>
+    <div class="el f2-right"><img src="images/flower_2.svg" alt="" /></div>
+
+
+    <!-- Content -->
+    <div class="content">
+
+      <div class="ganesha-wrap">
+        <img src="images/ganesha.svg" alt="Ganesha" />
+      </div>
+
+      <div class="sanskrit">|| श्री गणेशाय नमः ||</div>
+
+      <div class="title1">Havan</div>
+      <div class="title2">Puja</div>
+
+      <p class="description">We're settling into our new space and want to celebrate</p>
+
+      <p class="time">Starts from 1:00 PM</p>
+      <p class="date">Sunday, July 26, 2026</p>
+      <p class="address">451 Graham Circle, Florence, AL 35634</p>
+
+      <form class="form-wrap" id="rsvpForm" onsubmit="submitRSVP(event)" novalidate>
+
+        <div class="field-group">
+          <div class="field-label">Name</div>
+          <input class="field-input" type="text" id="guestName" required autocomplete="name" />
+        </div>
+
+        <div class="field-group">
+          <div class="field-label">Phone Number</div>
+          <input class="field-input" type="tel" id="phone" required autocomplete="tel" />
+        </div>
+
+        <div class="field-group">
+          <div class="attendees-label">Attendees</div>
+          <div class="attendees-row">
+
+            <div class="attendee-group">
+              <div class="attendee-sublabel">Adults</div>
+              <div class="counter-row">
+                <button type="button" class="counter-btn" onclick="counter('adults', -1)">−</button>
+                <input class="counter-input" type="number" id="adults" value="1" min="0" max="20" readonly />
+                <button type="button" class="counter-btn" onclick="counter('adults', 1)">+</button>
+              </div>
+            </div>
+
+            <div class="attendee-group">
+              <div class="attendee-sublabel">Kids Under 12</div>
+              <div class="counter-row">
+                <button type="button" class="counter-btn" onclick="counter('kids', -1)">−</button>
+                <input class="counter-input" type="number" id="kids" value="0" min="0" max="20" readonly />
+                <button type="button" class="counter-btn" onclick="counter('kids', 1)">+</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <button class="submit-btn" type="submit" id="submitBtn">Send RSVP</button>
+        <div class="success-msg" id="successMsg">
+          Thank you! Your RSVP has been received.<br />We look forward to celebrating with you. 🙏
+        </div>
+
+      </form>
+    </div>
+
+    <div class="action-btns">
+      <a class="action-btn" href="https://maps.google.com/?q=451+Graham+Circle+Florence+AL+35634" target="_blank" rel="noopener">
+        <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+        </svg>
+        Directions
+      </a>
+      <a class="action-btn" href="tel:+15551234567">
+        <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.07 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 5.49 5.49l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        Call Us
+      </a>
+    </div>
+
+    <!-- Decorative: bottom flowers -->
+    <div class="el fb-left"><img src="images/flower_1.svg" alt="" /></div>
+    <div class="el fb-right"><img src="images/flower_1.svg" alt="" /></div>
+    <div class="el fs-left"><img src="images/flower_3.svg" alt="" /></div>
+    <div class="el fs-right"><img src="images/flower_3.svg" alt="" /></div>
+
+  </div>
+</div>
+
+<script>
+  function counter(id, delta) {
+    const el = document.getElementById(id);
+    const next = parseInt(el.value, 10) + delta;
+    if (next >= 0 && next <= 20) el.value = next;
+  }
+
+  function submitRSVP(e) {
+    e.preventDefault();
+    const name  = document.getElementById('guestName').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    if (!name || !phone) {
+      const empty = !name
+        ? document.getElementById('guestName')
+        : document.getElementById('phone');
+      empty.focus();
+      empty.style.borderBottomColor = '#c0512a';
+      return;
+    }
+    document.getElementById('submitBtn').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+  }
+
+  // Reset border color on input
+  document.querySelectorAll('.field-input').forEach(el => {
+    el.addEventListener('input', () => el.style.borderBottomColor = '');
+  });
+</script>
+</body>
+</html>
