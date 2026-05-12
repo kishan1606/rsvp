@@ -8,8 +8,11 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    html { overflow-x: hidden; }
+
     body {
       min-height: 100vh;
+      overflow-x: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -110,7 +113,7 @@
 
     .description {
       margin-top: 22px;
-      font-size: 18px;
+      font-size: 20px;
       color: #c0512a;
       text-align: center;
       line-height: 1.55;
@@ -127,7 +130,7 @@
 
     .address {
       margin-top: 10px;
-      font-size: 18px;
+      font-size: 20px;
       color: #c0512a;
       text-align: center;
     }
@@ -135,7 +138,7 @@
     .time {
       margin-top: 20px;
       margin-bottom: -10px;
-      font-size: 18px;
+      font-size: 20px;
       color: #c0512a;
       text-align: center;
     }
@@ -153,7 +156,7 @@
     .field-group { margin-bottom: 20px; }
 
     .field-label {
-      font-size: 16px;
+      font-size: 20px;
       font-weight: 700;
       color: #a86b2c;
       text-align: center;
@@ -163,21 +166,22 @@
     .field-input {
       width: 100%;
       height: 42px;
-      background: #e6e0e9;
+      background: #f0e4d0;
       border: none;
       border-bottom: 2px solid #a86b2c;
       border-radius: 4px 4px 0 0;
-      padding: 0 16px;
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 16px;
+      padding: 0 20px;
+      font-size: 20px;
       color: #1d1b20;
       outline: none;
       transition: background 0.15s;
+      text-align: center ;
+      font-family: 'EB Garamond', Georgia, serif;
     }
-    .field-input:focus { background: #d9d3e0; }
+    .field-input:focus { background: #e3d0b5; }
 
     .attendees-label {
-      font-size: 16px;
+      font-size: 20px;
       font-weight: 700;
       color: #a86b2c;
       text-align: center;
@@ -198,7 +202,7 @@
     }
 
     .attendee-sublabel {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 700;
       color: #a86b2c;
     }
@@ -227,7 +231,8 @@
     .counter-input {
       width: 58px;
       height: 42px;
-      background: #e6e0e9;
+      background: #f0e4d0;
+      font-family: 'EB Garamond', Georgia, serif;
       border: none;
       border-bottom: 2px solid #a86b2c;
       border-radius: 4px 4px 0 0;
@@ -240,6 +245,63 @@
     }
     .counter-input::-webkit-inner-spin-button,
     .counter-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+    .form-title-wrap {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 40px;
+      margin-bottom: 4px;
+    }
+
+    .form-title-line {
+      flex: 1;
+      height: 1px;
+      background: #c0512a;
+      opacity: 0.4;
+    }
+
+    .form-title {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 52px;
+      color: #6a1b14;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .overnight-label {
+      font-size: 20px;
+      font-weight: 700;
+      color: #a86b2c;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .overnight-row {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .overnight-btn {
+      width: 120px;
+      height: 45px;
+      background: #f0e4d0;
+      border: 1.5px solid #a86b2c;
+      border-radius: 4px;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #a86b2c;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .overnight-btn.selected {
+      background: #3d1a0a;
+      color: #f7e2cc;
+      border-color: #3d1a0a;
+    }
 
     .submit-btn {
       align-self: center;
@@ -306,9 +368,8 @@
     }
 
     @media (max-width: 520px) {
-      body { background: none; }
-      .page { padding: 0; }
-      .card { width: 100vw; }
+      body { background: none; align-items: flex-start; }
+      .page { padding: 0; justify-content: center; }
     }
   </style>
 </head>
@@ -341,9 +402,15 @@
 
       <p class="description">We're settling into our new space and want to celebrate</p>
 
-      <p class="time">Starts from 1:00 PM</p>
-      <p class="date">Sunday, July 26, 2026</p>
+      <p class="time">Starts from 2:00 PM</p>
+      <p class="date">Saturday, July 25, 2026</p>
       <p class="address">451 Graham Circle, Florence, AL 35634</p>
+
+      <div class="form-title-wrap">
+        <div class="form-title-line"></div>
+        <div class="form-title">RSVP</div>
+        <div class="form-title-line"></div>
+      </div>
 
       <form class="form-wrap" id="rsvpForm" onsubmit="submitRSVP(event)" novalidate>
 
@@ -382,6 +449,14 @@
           </div>
         </div>
 
+        <div class="field-group">
+          <div class="overnight-label">Staying Overnight?</div>
+          <div class="overnight-row">
+            <button type="button" class="overnight-btn" id="overnightYes" onclick="setOvernight(true)">Yes</button>
+            <button type="button" class="overnight-btn selected" id="overnightNo" onclick="setOvernight(false)">No</button>
+          </div>
+        </div>
+
         <button class="submit-btn" type="submit" id="submitBtn">Send RSVP</button>
         <div class="success-msg" id="successMsg">
           Thank you! Your RSVP has been received.<br />We look forward to celebrating with you. 🙏
@@ -414,33 +489,97 @@
   </div>
 </div>
 
-<script>
-  function counter(id, delta) {
+<script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+  const supabase = createClient(
+    'https://dvdzqolfrlmivlyxnacz.supabase.co',
+    'sb_publishable_z3d49KwEaIiflnJVMVjxfg__bzivlJL'
+  );
+
+  let overnightValue = false;
+
+  window.counter = function(id, delta) {
     const el = document.getElementById(id);
     const next = parseInt(el.value, 10) + delta;
     if (next >= 0 && next <= 20) el.value = next;
-  }
+  };
 
-  function submitRSVP(e) {
+  window.setOvernight = function(val) {
+    overnightValue = val;
+    document.getElementById('overnightYes').classList.toggle('selected', val);
+    document.getElementById('overnightNo').classList.toggle('selected', !val);
+  };
+
+  window.submitRSVP = async function(e) {
     e.preventDefault();
     const name  = document.getElementById('guestName').value.trim();
     const phone = document.getElementById('phone').value.trim();
-    if (!name || !phone) {
-      const empty = !name
-        ? document.getElementById('guestName')
-        : document.getElementById('phone');
-      empty.focus();
-      empty.style.borderBottomColor = '#c0512a';
+    const digits = phone.replace(/\D/g, '');
+
+    if (!name) {
+      const el = document.getElementById('guestName');
+      el.focus(); el.style.borderBottomColor = '#c0512a'; return;
+    }
+    if (digits.length !== 10) {
+      const el = document.getElementById('phone');
+      el.focus(); el.style.borderBottomColor = '#c0512a'; return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    const { error } = await supabase.from('rsvps').insert({
+      name,
+      phone: digits,
+      adults:    parseInt(document.getElementById('adults').value, 10),
+      kids:      parseInt(document.getElementById('kids').value, 10),
+      overnight: overnightValue,
+    });
+
+    if (error) {
+      btn.disabled = false;
+      btn.textContent = 'Send RSVP';
+      alert('Something went wrong. Please try again.');
       return;
     }
-    document.getElementById('submitBtn').style.display = 'none';
-    document.getElementById('successMsg').style.display = 'block';
-  }
 
-  // Reset border color on input
-  document.querySelectorAll('.field-input').forEach(el => {
-    el.addEventListener('input', () => el.style.borderBottomColor = '');
+    btn.style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+  };
+
+  document.getElementById('phone').addEventListener('input', function() {
+    const digits = this.value.replace(/\D/g, '').slice(0, 10);
+    let formatted = '';
+    if (digits.length > 0) formatted = '(' + digits.slice(0, 3);
+    if (digits.length >= 4) formatted += ') - ' + digits.slice(3, 6);
+    if (digits.length >= 7) formatted += ' - ' + digits.slice(6, 10);
+    this.value = formatted;
+    this.style.borderBottomColor = '';
   });
+
+  document.getElementById('guestName').addEventListener('input', function() {
+    this.style.borderBottomColor = '';
+  });
+
+  function fitCard() {
+    const card = document.querySelector('.card');
+    const vw = window.innerWidth;
+    const BASE = 480;
+    if (vw < BASE) {
+      const s = vw / BASE;
+      card.style.transformOrigin = 'top center';
+      card.style.transform = `scale(${s})`;
+      card.style.marginBottom = `${card.offsetHeight * (s - 1)}px`;
+    } else {
+      card.style.transform = '';
+      card.style.transformOrigin = '';
+      card.style.marginBottom = '';
+    }
+  }
+  window.addEventListener('resize', fitCard);
+  fitCard();
 </script>
 </body>
 </html>
