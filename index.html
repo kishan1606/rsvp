@@ -80,18 +80,37 @@
 
     .ganesha-wrap {
       margin-top: 200px;
-      width: 128px;
-      height: 145px;
+      position: relative;
+      width: 192px;
+      height: 173px;
     }
-    .ganesha-wrap img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .ganesha-wrap .house-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .ganesha-wrap .ganesha-img {
+      position: absolute;
+      left: 51%;
+      transform: translateX(-50%);
+      top: 60px;
+      width: 700px;
+      height: 100px;
+      object-fit: contain;
+      display: block;
+    }
 
     .sanskrit {
       margin-top: 14px;
       font-family: 'Noto Sans Devanagari', 'EB Garamond', Georgia, serif;
-      font-size: 18px;
+      font-size: 25px;
       color: #8a2a1c;
       text-align: center;
       letter-spacing: 0.02em;
+      font-weight: bold;
     }
 
     .title1 {
@@ -101,6 +120,7 @@
       color: #6a1b14;
       text-align: center;
       line-height: 1.05;
+      font-weight: bold;
     }
     .title2 {
       font-family: 'Pinyon Script', cursive;
@@ -113,49 +133,64 @@
 
     .description {
       margin-top: 22px;
-      font-size: 20px;
+      font-size:25px;
       color: #c0512a;
       text-align: center;
       line-height: 1.55;
       max-width: 290px;
+      font-weight: bold;
+    }
+    .nogift {
+      margin-top: 22px;
+      font-size:25px;
+      color: #c0512a;
+      text-align: center;
+      line-height: 1.55;
+      max-width: 340px;
+      font-weight: bold;
+      font-style: italic;
     }
     .food1 {
-      margin-top: 10px;
-      font-size: 20px;
+      margin-top: 25px;
+      font-size: 25px;
       color: #c0512a;
       text-align: center;
       line-height: 1.55;
-      max-width: 290px;
+      max-width: 310px;
+      font-weight: bold;
     }
     .food {
       margin-top: 0px;
-      font-size: 20px;
+      font-size: 25px;
       color: #c0512a;
       text-align: center;
       line-height: 1.55;
-      max-width: 290px;
+      max-width: 340px;
+      font-weight: bold;
     }
     .date {
       margin-top: 10px;
-      font-size: 32px;
+      font-size: 40px;
       color: #c0512a;
       text-align: center;
-      font-weight: 400;
+      font-weight: bold;
     }
 
     .address {
       margin-top: 10px;
-      font-size: 20px;
+      font-size: 23px;
       color: #c0512a;
       text-align: center;
+      font-weight: bold;
     }
 
     .time {
       margin-top: 20px;
       margin-bottom: -10px;
-      font-size: 20px;
+      font-size: 25px;
       color: #c0512a;
       text-align: center;
+      font-weight: bold;
     }
 
     /* ── RSVP Form ── */
@@ -171,7 +206,7 @@
     .field-group { margin-bottom: 20px; }
 
     .field-label {
-      font-size: 20px;
+      font-size: 25px;
       font-weight: 700;
       color: #a86b2c;
       text-align: center;
@@ -180,13 +215,13 @@
 
     .field-input {
       width: 100%;
-      height: 42px;
+      height: 50px;
       background: #f0e4d0;
       border: none;
       border-bottom: 2px solid #a86b2c;
       border-radius: 4px 4px 0 0;
       padding: 0 20px;
-      font-size: 20px;
+      font-size: 25px;
       color: #1d1b20;
       outline: none;
       transition: background 0.15s;
@@ -196,7 +231,7 @@
     .field-input:focus { background: #e3d0b5; }
 
     .attendees-label {
-      font-size: 20px;
+      font-size: 25px;
       font-weight: 700;
       color: #a86b2c;
       text-align: center;
@@ -219,7 +254,7 @@
     }
 
     .attendee-sublabel {
-      font-size: 16px;
+      font-size: 22px;
       font-weight: 700;
       color: #a86b2c;
     }
@@ -230,8 +265,8 @@
     }
 
     .counter-btn {
-      width: 44px;
-      height: 50px;
+      width: 60px;
+      height: 60px;
       background: none;
       border: none;
       font-family: 'EB Garamond', Georgia, serif;
@@ -254,7 +289,7 @@
       border-bottom: 2px solid #a86b2c;
       border-radius: 4px 4px 0 0;
       text-align: center;
-      font-size: 20px;
+      font-size: 25px;
       color: #1d1b20;
       outline: none;
       -moz-appearance: textfield;
@@ -285,6 +320,7 @@
       color: #6a1b14;
       line-height: 1;
       white-space: nowrap;
+      font-weight: bold;
     }
 
     .overnight-label {
@@ -324,12 +360,12 @@
       align-self: center;
       margin-top: 32px;
       width: 245px;
-      height: 50px;
+      height: 60px;
       background: #3d1a0a;
       border: none;
       border-radius: 4px;
       font-family: 'EB Garamond', Georgia, serif;
-      font-size: 20px;
+      font-size: 25px;
       font-weight: 700;
       color: #f7e2cc;
       cursor: pointer;
@@ -341,7 +377,7 @@
     .success-msg {
       display: none;
       margin-top: 24px;
-      font-size: 18px;
+      font-size: 22px;
       color: #6a1b14;
       text-align: center;
       font-style: italic;
@@ -384,7 +420,7 @@
       display: block;
     }
 
-    @media (max-width: 520px) {
+@media (max-width: 520px) {
       body { background: none; align-items: flex-start; }
       .page { padding: 0; justify-content: center; }
     }
@@ -408,8 +444,9 @@
     <!-- Content -->
     <div class="content">
 
-      <div class="ganesha-wrap">
-        <img src="images/ganesha.svg" alt="Ganesha" />
+<div class="ganesha-wrap">
+        <img class="ganesha-img" src="images/ganesha.svg" alt="Ganesha" />
+        <img class="house-img" src="images/house.svg" alt="" />
       </div>
 
       <div class="sanskrit">|| श्री गणेशाय नमः ||</div>
@@ -420,15 +457,18 @@
 
       <p class="description">To invoke Peace, Prosperity & Spiritual Blessings</p>
 
+      <img src="images/havan.svg" alt="" style="width:200px;height:180px;margin:20px;display:block;" />
       <p class="date">Saturday, July 25, 2026</p>
+      <p class="description">At our new residence</p>
       <p class="address">451 Graham Circle, Florence, AL 35634</p>
 
+      
       <p class="food1">Lunch starts at 12:00 Noon</p>
       <p class="food">Yagna & Puja start at 2:00 PM</p>
       <p class="food">Dinner after Puja</p>
 
       <p class="description">Kindly bless us with your presence and prayers</p>
-      <p class="description">NO GIFTS PLEASE</p>
+      <p class="nogift">NO GIFTS PLEASE</p>
 
       <p class="description">Kindly RSVP by</p>
       <p class="food">June 25th, 2026</p>
