@@ -374,7 +374,7 @@
     }
 
     .overnight-label {
-      font-size: min(20px, 4.17vw);
+      font-size: min(25px, 5.21vw);
       font-weight: 700;
       color: #a86b2c;
       text-align: center;
@@ -401,6 +401,31 @@
       transition: background 0.15s, color 0.15s;
     }
     .overnight-btn.selected {
+      background: #3d1a0a;
+      color: #f7e2cc;
+      border-color: #3d1a0a;
+    }
+
+    .attending-row {
+      display: flex;
+      flex-direction: column;
+      gap: min(10px, 2.08vw);
+    }
+
+    .attending-btn {
+      width: 100%;
+      height: min(48px, 10vw);
+      background: #f0e4d0;
+      border: 1.5px solid #a86b2c;
+      border-radius: 4px;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: min(20px, 4.17vw);
+      font-weight: 700;
+      color: #a86b2c;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .attending-btn.selected {
       background: #3d1a0a;
       color: #f7e2cc;
       border-color: #3d1a0a;
@@ -685,6 +710,14 @@
         </div>
 
         <div class="field-group">
+          <div class="overnight-label">Will you be joining us with your blessings?</div>
+          <div class="attending-row">
+            <button type="button" class="attending-btn selected" id="attendingYes" onclick="setAttending(true)">Yes, we'll be there!</button>
+            <button type="button" class="attending-btn" id="attendingNo" onclick="setAttending(false)">We are unable to attend</button>
+          </div>
+        </div>
+
+        <div class="field-group" id="attendeesGroup">
           <div class="attendees-label">Attendees</div>
           <div class="attendees-row">
 
@@ -758,7 +791,16 @@
   );
   // document.getElementById('updateModal').classList.add('open');
   let overnightValue = false;
+  let attendingValue = true;
   let pendingPayload  = null;
+
+  window.setAttending = function(val) {
+    attendingValue = val;
+    document.getElementById('attendingYes').classList.toggle('selected', val);
+    document.getElementById('attendingNo').classList.toggle('selected', !val);
+    document.getElementById('attendeesGroup').style.display = val ? '' : 'none';
+    document.getElementById('attendeesGroup').style.marginTop = val ? '' : '0';
+  };
 
   window.counter = function(id, delta) {
     const el = document.getElementById(id);
@@ -793,15 +835,16 @@
 
     const payload = {
       name,
-      phone:    digits,
-      adults:   parseInt(document.getElementById('adults').value, 10),
-      kids:     parseInt(document.getElementById('kids').value, 10),
+      phone:     digits,
+      attending: attendingValue,
+      adults:    attendingValue ? parseInt(document.getElementById('adults').value, 10) : 0,
+      kids:      attendingValue ? parseInt(document.getElementById('kids').value, 10) : 0,
       overnight: overnightValue,
     };
 
     const { data: rows, error: lookupError } = await supabase
       .from('rsvps')
-      .select('id, name, adults, kids')
+      .select('id, name, attending, adults, kids')
       .eq('phone', digits)
       .order('created_at', { ascending: false })
       .limit(1);
@@ -820,6 +863,10 @@
       document.getElementById('modalExistingName').textContent =
         `Existing RSVP for "${existing.name}"`;
       document.getElementById('modalValues').innerHTML = `
+        <div class="modal-values-row">
+          <span class="modal-values-label">Attending</span>
+          <span class="modal-values-val">${existing.attending ? 'Yes' : 'No'}</span>
+        </div>
         <div class="modal-values-row">
           <span class="modal-values-label">Adults</span>
           <span class="modal-values-val">${existing.adults}</span>
@@ -850,6 +897,7 @@
       .from('rsvps')
       .update({
         name:      pendingPayload.name,
+        attending: pendingPayload.attending,
         adults:    pendingPayload.adults,
         kids:      pendingPayload.kids,
         overnight: pendingPayload.overnight,
